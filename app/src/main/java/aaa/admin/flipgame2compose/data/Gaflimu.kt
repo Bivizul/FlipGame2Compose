@@ -7,6 +7,12 @@ import android.content.Context
 import android.content.res.Configuration
 import android.net.ConnectivityManager
 import android.telephony.TelephonyManager
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
+import coil.compose.AsyncImage
 import com.onesignal.OneSignal
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -153,14 +159,30 @@ object Gaflimu {
         return if (gaflimsp.getBoolean(GAFLIMFL, true)) gaflimsec else -1
     }
 
-    fun getGaflimimg(gaflimc: Context): String {
-        val gaflimc = gaflimc.resources.configuration.orientation
-        val gaflimi = if (gaflimc == Configuration.ORIENTATION_PORTRAIT) {
-            GAFLIMIV
-        } else {
-            GAFLIMIH
+//    fun getGaflimimg(gaflimc: Context): String {
+//        val gaflimc = gaflimc.resources.configuration.orientation
+//        val gaflimi = if (gaflimc == Configuration.ORIENTATION_PORTRAIT) {
+//            GAFLIMIV
+//        } else {
+//            GAFLIMIH
+//        }
+//        return gaflimi
+//    }
+
+    @Composable
+    fun Gaflimimg() {
+        val gaflimc = LocalConfiguration.current.orientation
+        val gaflimi = when (gaflimc) {
+            Configuration.ORIENTATION_PORTRAIT -> GAFLIMIV
+            else -> GAFLIMIH
         }
-        return gaflimi
+        AsyncImage(
+            model = gaflimi,
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop,
+        )
+
     }
 
     fun getGamflitpvi(noofits: String): String {

@@ -2,6 +2,7 @@
 <resources>
 
     <style name="Theme.FlipGame2Compose" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/purple_700</item>
+        <item name="android:statusBarColor">@color/gaflimo</item>
+        <item name="android:navigationBarColor">@color/gaflimo</item>
     </style>
 </resources>
