@@ -29,11 +29,9 @@ fun GaflimNavHost(
     ) {
         composable(Screen.Gaflimash.route) { backStackEntry ->
             GaflimashScreen(navController = navController)
-//            backStackEntry.c
-
         }
         composable(Screen.Gaflimame.route) {
-            Gaflimame()
+            GaflimameScreen()
             BackHandler() {
                 gamlimact.finish()
             }

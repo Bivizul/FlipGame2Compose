@@ -24,9 +24,9 @@ import java.util.*
 @Suppress("DEPRECATION")
 object Gaflimu {
 
-    private const val GAFLIMIH = "http://65.109.10.118/games/FlipGame/h.jpg"
+    private const val GAFLIMIH = "http://65.109.10.118/games/FlipGame2Compose/rjy.jpg"
     private const val GAFLIMT = "Oops, error connection game network"
-    private const val GAFLIMIV = "http://65.109.10.118/games/FlipGame/v.jpg"
+    private const val GAFLIMIV = "http://65.109.10.118/games/FlipGame2Compose/gjo.jpg"
     private const val GAFLIMM = "Please reload game"
     private const val GAFLIMK = "gaflimk"
     private const val NOGAFLIM = "nogaflim"
@@ -159,16 +159,6 @@ object Gaflimu {
         return if (gaflimsp.getBoolean(GAFLIMFL, true)) gaflimsec else -1
     }
 
-//    fun getGaflimimg(gaflimc: Context): String {
-//        val gaflimc = gaflimc.resources.configuration.orientation
-//        val gaflimi = if (gaflimc == Configuration.ORIENTATION_PORTRAIT) {
-//            GAFLIMIV
-//        } else {
-//            GAFLIMIH
-//        }
-//        return gaflimi
-//    }
-
     @Composable
     fun Gaflimimg() {
         val gaflimc = LocalConfiguration.current.orientation
@@ -178,11 +168,10 @@ object Gaflimu {
         }
         AsyncImage(
             model = gaflimi,
-            contentDescription = null,
+            contentDescription = "image",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,
         )
-
     }
 
     fun getGamflitpvi(noofits: String): String {

@@ -4,12 +4,12 @@ import aaa.admin.flipgame2compose.data.Gaflim
 import aaa.admin.flipgame2compose.data.Gaflimnet
 import aaa.admin.flipgame2compose.data.Gaflimu
 import android.app.Activity
-import android.util.Log
-import androidx.compose.material.Text
+import android.content.Intent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavHostController
 import com.appsflyer.AppsFlyerLib
 import com.onesignal.OneSignal
@@ -29,7 +29,7 @@ fun GaflimashScreen(
 
     val gaflimc = LocalContext.current as Activity
 
-    Text(text = "GaflimashScreen")
+    Gaflimu.Gaflimimg()
 
     LaunchedEffect(null) {
         CoroutineScope(Dispatchers.Main).launch {
@@ -37,15 +37,12 @@ fun GaflimashScreen(
             else gaflimsuc(gaflimc, navController)
         }
     }
-
-
 }
 
 private fun gaflimsuc(
     gaflimc: Activity,
     navController: NavHostController,
 ) {
-    Log.e("qwer", "gaflimsuc")
     CoroutineScope(Dispatchers.Main).launch {
         val gaflimgr = Gaflimnet.gaflimnet().getGaflimg(
             Gaflim(
@@ -62,30 +59,26 @@ private fun gaflimsuc(
         if (gaflimgr.isSuccessful) {
             if (gaflimgr.body() != null) {
                 gaflimgr.body()?.let { gaflimg ->
-                    Log.e("qwer", "gaflimg : ${gaflimg.gaflimg}")
                     when (gaflimg.gaflimg) {
                         Gaflimu.GAFLIMG -> {
-//                        findNavController().navigate(R.id.action_gaflimashFragment_to_gaflimmenuFragment)
                             navController.navigate(Screen.Gaflimame.route)
                         }
                         Gaflimu.GAFLIMNP -> {
                             Gaflimu.setGaflimosdp()
                             navController.navigate(Screen.Gaflimame.route)
-//                        findNavController().navigate(R.id.action_gaflimashFragment_to_gaflimmenuFragment)
                         }
                         else -> {
                             Gaflimu.setGaflimb(gaflimc)
                             OneSignal.setExternalUserId(Gaflimu.getGamflitpvi(gaflimg.gaflimg))
                             AppsFlyerLib.getInstance()
                                 .setCustomerUserId(Gaflimu.getGamflitpvi(gaflimg.gaflimg))
-//                        val gaflimi = Intent(requireActivity(), GaflimActivity::class.java)
-//                        gaflimi.putExtra(Gaflimu.GAFLIMKOR, gaflimg.gaflimg)
-//                        startActivity(gaflimi)
-//                        requireActivity().finish()
+                            val gaflimi = Intent(gaflimc, GaflimActivity::class.java)
+                            gaflimi.putExtra(Gaflimu.GAFLIMKOR, gaflimg.gaflimg)
+                            startActivity(gaflimc, gaflimi, null)
+                            gaflimc.finish()
                         }
                     }
                 }
-
             } else {
                 Gaflimu.getGaflimdlg(gaflimc)
             }
@@ -99,13 +92,12 @@ private fun gaflimtimer(
     gaflimc: Activity,
     navController: NavHostController,
 ) {
-    Log.e("qwer", "gaflimtimer")
     val gaflimtimer = Timer()
     gaflimtimer.schedule(object : TimerTask() {
         override fun run() {
             if (Gaflimu.getGaflimafd(gaflimc) != Gaflimu.GAFLIMEJ) {
                 try {
-                    val gaflimafd = JSONObject(Gaflimu.getGaflimafd(gaflimc)!!)
+                    val gaflimafd = JSONObject(Gaflimu.getGaflimafd(gaflimc))
                     if (gaflimafd.get(Gaflimu.GAFLIMFOS) == Gaflimu.GAFLIMOV) {
                         Gaflimu.setGaflimcb(
                             gaflimc,
@@ -128,7 +120,6 @@ private fun gaflimtimer(
                 }
             }
             gaflimsec++
-            Log.e("qwer", "gaflimsec : $gaflimsec")
             if (gaflimsec == 10) {
                 gaflimtimer.cancel()
                 gaflimsuc(gaflimc, navController)
@@ -141,10 +132,9 @@ private fun gaflimcn(
     gaflimc: Activity,
     navController: NavHostController,
 ) {
-    Log.e("qwer", "gaflimcn")
     if (!Gaflimu.getGaflimcb(gaflimc)) {
         if (Gaflimu.getGaflimafd(gaflimc) != Gaflimu.GAFLIMEJ) {
-            val gaflimafd = JSONObject(Gaflimu.getGaflimafd(gaflimc)!!)
+            val gaflimafd = JSONObject(Gaflimu.getGaflimafd(gaflimc))
             if (gaflimafd.get(Gaflimu.GAFLIMFOS) == Gaflimu.GAFLIMOV) {
                 Gaflimu.setGaflimcb(gaflimc, gaflimafd.get(Gaflimu.GAFLIMFOS) as String)
                 Gaflimu.setGaflimlu(gaflimafd)
